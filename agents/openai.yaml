@@ -1,0 +1,4 @@
+interface:
+  display_name: "Skill Optimizer"
+  short_description: "Analyze session logs and optimize a target Skill for lower token cost."
+  default_prompt: "Optimize a target Skill using historical session logs. Start by collecting deterministic evidence, then produce an optimization report and candidate Skill version."

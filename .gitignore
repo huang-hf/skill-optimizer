@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+
+# Local/generated analysis artifacts may contain session-derived data.
+analysis/
+
+# Local environment files.
+.env
+.venv/
+venv/

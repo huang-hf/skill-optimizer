@@ -101,7 +101,7 @@ class ClaudeLogAnalysisTests(unittest.TestCase):
                                 "type": "tool_result",
                                 "tool_name": "read",
                                 "tool_input": {
-                                    "filePath": "/Users/me/.claude/skills/ai-review-response/SKILL.md"
+                                    "filePath": "/Users/me/.claude/skills/my-test-skill/SKILL.md"
                                 },
                                 "tool_output": {"output": "# AI Review Response"},
                             }
@@ -121,7 +121,7 @@ class ClaudeLogAnalysisTests(unittest.TestCase):
             )
 
             result = skillopt.collect_claude_evidence(
-                skill_path=Path("/Users/me/.claude/skills/ai-review-response/SKILL.md"),
+                skill_path=Path("/Users/me/.claude/skills/my-test-skill/SKILL.md"),
                 logs_path=root,
                 trigger_terms=["watch pr", "monitor PR"],
             )
@@ -146,7 +146,7 @@ class ClaudeLogAnalysisTests(unittest.TestCase):
                     {
                         "type": "tool_result",
                         "tool_name": "read",
-                        "tool_input": {"filePath": "/Users/me/.claude/skills/coffer/SKILL.md"},
+                        "tool_input": {"filePath": "/Users/me/.claude/skills/other-skill/SKILL.md"},
                         "tool_output": {"output": "# Coffer"},
                     }
                 )
@@ -155,7 +155,7 @@ class ClaudeLogAnalysisTests(unittest.TestCase):
             )
 
             result = skillopt.collect_claude_evidence(
-                skill_path=Path("/Users/me/.claude/skills/ai-review-response/SKILL.md"),
+                skill_path=Path("/Users/me/.claude/skills/my-test-skill/SKILL.md"),
                 logs_path=root,
                 trigger_terms=["watch pr"],
             )
@@ -213,7 +213,7 @@ class ClaudeLogAnalysisTests(unittest.TestCase):
             )
 
             result = skillopt.collect_claude_evidence(
-                skill_path=Path("/Users/me/.claude/skills/ai-review-response/SKILL.md"),
+                skill_path=Path("/Users/me/.claude/skills/my-test-skill/SKILL.md"),
                 logs_path=root,
                 trigger_terms=["watch pr"],
                 since="2026-07-15T00:00:00Z",
@@ -326,7 +326,7 @@ class AdapterAndUsageTests(unittest.TestCase):
                                     "content": [
                                         {
                                             "type": "text",
-                                            "text": "Base directory for this skill: /Users/me/.claude/skills/ai-review-response",
+                                            "text": "Base directory for this skill: /Users/me/.claude/skills/my-test-skill",
                                         }
                                     ]
                                 },
@@ -346,7 +346,7 @@ class AdapterAndUsageTests(unittest.TestCase):
             )
 
             result = skillopt.collect_claude_evidence(
-                Path("/Users/me/.claude/skills/ai-review-response/SKILL.md"),
+                Path("/Users/me/.claude/skills/my-test-skill/SKILL.md"),
                 root,
                 ["watch-pr"],
             )

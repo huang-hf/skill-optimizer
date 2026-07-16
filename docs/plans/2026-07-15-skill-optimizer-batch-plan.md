@@ -57,7 +57,7 @@ def test_plan_install_refuses_unknown_agent():
 Run:
 
 ```bash
-cd /Users/huanghuifeng/workspace/skill-optimizer/scripts
+cd ./skill-optimizer/scripts
 python3 -m unittest test_skillopt.py
 ```
 
@@ -170,19 +170,19 @@ Detect direct Claude skill load markers:
 
 ```text
 Base directory for this skill:
-/ai-review-response
-ai-review-response/SKILL.md
-/Users/.../.claude/skills/ai-review-response
+/my-test-skill
+my-test-skill/SKILL.md
+/Users/.../.claude/skills/my-test-skill
 ```
 
-- [ ] **Step 5: Re-run `ai-review-response` evidence**
+- [ ] **Step 5: Re-run `my-test-skill` evidence**
 
 Run:
 
 ```bash
 python3 scripts/skillopt.py claude-evidence \
-  --skill /Users/huanghuifeng/.claude/skills/ai-review-response/SKILL.md \
-  --logs /Users/huanghuifeng/.claude \
+  --skill ~/.claude/skills/my-test-skill/SKILL.md \
+  --logs ~/.claude \
   --until 2026-07-15T00:00:00Z \
   --trigger watch-pr --trigger "watch pr"
 ```
@@ -524,7 +524,7 @@ Document:
 - [ ] **Step 1: Run unit tests**
 
 ```bash
-cd /Users/huanghuifeng/workspace/skill-optimizer/scripts
+cd ./skill-optimizer/scripts
 python3 -m unittest test_skillopt.py
 ```
 
@@ -533,7 +533,7 @@ Expected: OK.
 - [ ] **Step 2: Validate Skill**
 
 ```bash
-python3 /Users/huanghuifeng/.codex/skills/.system/skill-creator/scripts/quick_validate.py /Users/huanghuifeng/workspace/skill-optimizer
+python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py ./skill-optimizer
 ```
 
 Expected: `Skill is valid!`
@@ -541,11 +541,11 @@ Expected: `Skill is valid!`
 - [ ] **Step 3: Run real sample analysis**
 
 ```bash
-python3 /Users/huanghuifeng/workspace/skill-optimizer/scripts/skillopt.py analyze \
+python3 ./skill-optimizer/scripts/skillopt.py analyze \
   --agent claude \
-  --skill /Users/huanghuifeng/.claude/skills/ai-review-response/SKILL.md \
-  --logs /Users/huanghuifeng/.claude \
-  --out /Users/huanghuifeng/workspace/skill-optimizer/analysis/ai-review-response \
+  --skill ~/.claude/skills/my-test-skill/SKILL.md \
+  --logs ~/.claude \
+  --out ./skill-optimizer/analysis/my-test-skill \
   --version 0.2.0 \
   --until 2026-07-15T00:00:00Z \
   --trigger watch-pr \

@@ -66,7 +66,7 @@ Optimize my <skill-name> skill with skill-optimizer. Create a report and a candi
 Example:
 
 ```text
-Optimize my netmind-power-model skill with skill-optimizer. Create a report and a candidate version.
+Optimize my-test-skill with skill-optimizer. Create a report and a candidate version.
 ```
 
 ## Supported Agents

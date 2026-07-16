@@ -100,7 +100,7 @@ Use one JSON object per run:
 
 ```json
 {
-  "skill_id": "ai-review-response",
+  "skill_id": "my-test-skill",
   "baseline_version": "0.2.0",
   "candidate_version": "0.3.0-candidate",
   "baseline_window": {"since": null, "until": "2026-07-15T00:00:00Z"},

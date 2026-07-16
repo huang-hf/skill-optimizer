@@ -1,136 +1,81 @@
 # skill-optimizer
 
-Optimize agent Skills using historical session logs, token metrics, and versioned evidence.
+Evidence-based Skill optimization for coding agents.
 
-`skill-optimizer` is an agent-native Skill plus helper scripts. It analyzes one target Skill at a time, using local Claude or Codex logs to identify whether the Skill was loaded, whether it drove useful behavior, which sections have evidence, and which repeated command flows could become scripts.
+`skill-optimizer` helps improve agent Skills using real usage logs. It looks at how a Skill is actually triggered and used, then helps produce an optimization report and a candidate Skill version.
 
-## Goals
+## Why
 
-- Reduce token cost per successful skill-related task.
-- Keep task success signals from regressing.
-- Record versioned metrics so users can compare Skill versions over time.
-- Keep semantic judgment in the agent, while scripts collect deterministic evidence.
+Agent Skills tend to grow over time:
 
-## Contents
+- old rules stay around after they stop mattering
+- examples and FAQ sections become duplicated
+- trigger descriptions get too broad
+- low-frequency details stay in the always-loaded context
+- repeated workflows remain as instructions instead of scripts
+
+Blindly shortening a Skill is risky. A smaller Skill can make tasks fail.
+
+## What It Does
+
+Given a target Skill and historical Claude or Codex logs, `skill-optimizer` helps identify:
+
+- whether the Skill is loaded for matching tasks
+- whether loaded sessions show useful behavior
+- which sections have deterministic evidence
+- which content may be moved, rewritten, or removed
+- which repeated workflows may become scripts
+- how Skill metrics change across versions
+
+## Not Prompt Compression
+
+This is not a prompt compression tool.
+
+`skill-optimizer` separates:
+
+1. static Skill size reduction
+2. loaded-context reduction
+3. observed task-level impact after adoption
+
+The goal is:
 
 ```text
-SKILL.md                         Agent-facing workflow
-scripts/skillopt.py              Evidence collection and analysis CLI
-scripts/test_skillopt.py         Unit tests
-references/optimization-playbook.md
-agents/openai.yaml               Skill UI metadata
-docs/plans/                      Development plans
+lower token cost per successful skill-related task
 ```
 
-Generated `analysis/` outputs are ignored by git because they can contain session-derived data.
+while avoiding regressions in task success.
 
 ## Quick Start
 
-Analyze a Claude Skill:
+### 1. Install
 
-```bash
-python3 scripts/skillopt.py analyze \
-  --agent claude \
-  --skill /path/to/skills/my-skill/SKILL.md \
-  --logs ~/.claude \
-  --out analysis/my-skill \
-  --version 0.1.0 \
-  --trigger "user phrase"
-```
-
-Analyze a Codex Skill:
-
-```bash
-python3 scripts/skillopt.py analyze \
-  --agent codex \
-  --skill /path/to/skills/my-skill/SKILL.md \
-  --logs ~/.codex \
-  --out analysis/my-skill \
-  --version 0.1.0 \
-  --trigger "user phrase"
-```
-
-The analyzer writes:
+Send this to your agent:
 
 ```text
-skill-structure.json
-evidence.json
-section-evidence.json
-script-candidates.json
-snapshot.json
+Install https://github.com/huang-hf/skill-optimizer as an agent Skill.
 ```
 
-Append metrics for a run:
+### 2. Optimize
 
-```bash
-python3 scripts/skillopt.py analyze \
-  --agent claude \
-  --skill /path/to/SKILL.md \
-  --logs ~/.claude \
-  --out analysis/my-skill \
-  --version 0.1.0 \
-  --trigger "user phrase" \
-  --append-metrics
+Send this to your agent:
+
+```text
+Optimize my <skill-name> skill with skill-optimizer. Create a report and a candidate version.
 ```
 
-Compare two snapshots:
+Example:
 
-```bash
-python3 scripts/skillopt.py compare \
-  --before analysis/my-skill/baseline-snapshot.json \
-  --after analysis/my-skill/postadopt-snapshot.json
+```text
+Optimize my netmind-power-model skill with skill-optimizer. Create a report and a candidate version.
 ```
 
-## Install Planning
+## Supported Agents
 
-Show where the Skill would be installed:
+- Claude Code
+- Codex
 
-```bash
-python3 scripts/skillopt.py install-plan --agent claude --source .
-python3 scripts/skillopt.py install-plan --agent codex --source .
-```
+## Status
 
-Install locally:
-
-```bash
-python3 scripts/skillopt.py install --agent claude --source .
-python3 scripts/skillopt.py install --agent codex --source .
-```
-
-Use `--overwrite` only when replacing an existing local install.
-
-## Tests
-
-```bash
-cd scripts
-python3 -m unittest test_skillopt.py
-```
-
-Validate the Skill structure with Codex's skill validator when available:
-
-```bash
-python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py .
-```
-
-## Version Windows
-
-Do not mix logs from different Skill versions. Use `--since` and `--until` to define baseline and post-adoption windows:
-
-```bash
-python3 scripts/skillopt.py analyze \
-  --agent claude \
-  --skill /path/to/SKILL.md \
-  --logs ~/.claude \
-  --out analysis/my-skill \
-  --version 0.2.0 \
-  --since 2026-07-16T00:00:00Z
-```
-
-## Current Status
-
-Prototype/MVP. Supported log adapters:
-
-- Claude: `history.jsonl`, `transcripts/*.jsonl`, `projects/**/*.jsonl`, `sessions/**/*.jsonl`
-- Codex: `history.jsonl`, `sessions/*.json`, `sessions/*.jsonl`
+Prototype / MVP.
 
 No third-party Python dependencies are required.

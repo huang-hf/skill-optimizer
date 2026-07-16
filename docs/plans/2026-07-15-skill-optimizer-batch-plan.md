@@ -1,6 +1,6 @@
 # Skill Optimizer Batch Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
 
 **Goal:** Upgrade `skill-optimizer` from a prototype into a usable Claude/Codex Skill optimization tool with install support, deeper log adapters, token metrics, section evidence, and scriptification detection.
 
@@ -37,7 +37,7 @@
 - Test: `scripts/test_skillopt.py`
 - Modify: `SKILL.md`
 
-- [ ] **Step 1: Write failing tests for install path planning**
+- [x] **Step 1: Write failing tests for install path planning**
 
 Add tests for:
 
@@ -52,7 +52,7 @@ def test_plan_install_refuses_unknown_agent():
         skillopt.plan_install(Path("/draft/skill-optimizer"), agent="cursor", home=Path("/home/me"))
 ```
 
-- [ ] **Step 2: Run tests to verify failure**
+- [x] **Step 2: Run tests to verify failure**
 
 Run:
 
@@ -63,7 +63,7 @@ python3 -m unittest test_skillopt.py
 
 Expected: FAIL because `plan_install` does not exist.
 
-- [ ] **Step 3: Implement install planning**
+- [x] **Step 3: Implement install planning**
 
 Add:
 
@@ -87,7 +87,7 @@ python3 scripts/skillopt.py install-plan --agent claude --source /path/to/skill-
 
 Do not copy files in this command.
 
-- [ ] **Step 4: Add optional install command**
+- [x] **Step 4: Add optional install command**
 
 Add:
 
@@ -102,7 +102,7 @@ Behavior:
 - fail if target exists unless `--overwrite` is passed,
 - print target path.
 
-- [ ] **Step 5: Verify tests pass**
+- [x] **Step 5: Verify tests pass**
 
 Run unit tests and `quick_validate.py`.
 
@@ -115,7 +115,7 @@ Run unit tests and `quick_validate.py`.
 - Test: `scripts/test_skillopt.py`
 - Modify: `SKILL.md`
 
-- [ ] **Step 1: Write failing tests for `~/.claude/projects/**` discovery**
+- [x] **Step 1: Write failing tests for `~/.claude/projects/**` discovery**
 
 Create temp structure:
 
@@ -129,7 +129,7 @@ logs/
 
 Test that project JSONL files are included when `--source claude` or `claude-evidence` runs.
 
-- [ ] **Step 2: Write failing tests for Claude project message shapes**
+- [x] **Step 2: Write failing tests for Claude project message shapes**
 
 Cover these observed patterns:
 
@@ -149,7 +149,7 @@ Expected extraction:
 - read paths,
 - token usage if present.
 
-- [ ] **Step 3: Implement source discovery**
+- [x] **Step 3: Implement source discovery**
 
 Replace transcript-only discovery with:
 
@@ -164,7 +164,7 @@ Claude sources:
 - `projects/**/*.jsonl`
 - `sessions/**/*.jsonl` if present
 
-- [ ] **Step 4: Improve load markers**
+- [x] **Step 4: Improve load markers**
 
 Detect direct Claude skill load markers:
 
@@ -175,7 +175,7 @@ my-test-skill/SKILL.md
 /Users/.../.claude/skills/my-test-skill
 ```
 
-- [ ] **Step 5: Re-run `my-test-skill` evidence**
+- [x] **Step 5: Re-run `my-test-skill` evidence**
 
 Run:
 
@@ -199,7 +199,7 @@ Expected: related sessions should reflect project logs, not just transcripts.
 - Modify: `SKILL.md`
 - Modify: `references/optimization-playbook.md`
 
-- [ ] **Step 1: Write failing tests for Codex JSON session parsing**
+- [x] **Step 1: Write failing tests for Codex JSON session parsing**
 
 Use a temp `.codex` fixture with:
 
@@ -217,7 +217,7 @@ Test extraction of:
 - skill load evidence from `SKILL.md` reads,
 - timestamps.
 
-- [ ] **Step 2: Add `codex-evidence` command**
+- [x] **Step 2: Add `codex-evidence` command**
 
 Expose:
 
@@ -230,7 +230,7 @@ python3 scripts/skillopt.py codex-evidence \
 
 Output schema must match `claude-evidence` enough for `snapshot` to consume.
 
-- [ ] **Step 3: Add source-neutral command**
+- [x] **Step 3: Add source-neutral command**
 
 Add:
 
@@ -240,7 +240,7 @@ python3 scripts/skillopt.py evidence --agent claude|codex ...
 
 Keep old commands as aliases.
 
-- [ ] **Step 4: Validate on local `.codex` sample**
+- [x] **Step 4: Validate on local `.codex` sample**
 
 Use read-only local logs. Do not read secrets or auth files.
 
@@ -253,7 +253,7 @@ Use read-only local logs. Do not read secrets or auth files.
 - Test: `scripts/test_skillopt.py`
 - Modify: `references/optimization-playbook.md`
 
-- [ ] **Step 1: Write failing tests for token usage extraction**
+- [x] **Step 1: Write failing tests for token usage extraction**
 
 Fixtures:
 
@@ -274,7 +274,7 @@ Expected:
 }
 ```
 
-- [ ] **Step 2: Implement recursive usage extraction**
+- [x] **Step 2: Implement recursive usage extraction**
 
 Add:
 
@@ -285,7 +285,7 @@ sum_token_usage(rows)
 
 Fallback remains `token_proxy`.
 
-- [ ] **Step 3: Extend session output and snapshots**
+- [x] **Step 3: Extend session output and snapshots**
 
 Add fields:
 
@@ -298,7 +298,7 @@ Add fields:
 
 Update `build_metrics_snapshot`.
 
-- [ ] **Step 4: Update comparison output**
+- [x] **Step 4: Update comparison output**
 
 Add:
 
@@ -316,7 +316,7 @@ Add:
 - Test: `scripts/test_skillopt.py`
 - Modify: `SKILL.md`
 
-- [ ] **Step 1: Write failing tests for section keyword extraction**
+- [x] **Step 1: Write failing tests for section keyword extraction**
 
 Given a section with:
 
@@ -328,7 +328,7 @@ ai-review
 
 Expected extracted evidence terms include command phrases and unique identifiers.
 
-- [ ] **Step 2: Write failing tests for section matching**
+- [x] **Step 2: Write failing tests for section matching**
 
 Given parsed sections and sessions, expect:
 
@@ -341,7 +341,7 @@ Given parsed sections and sessions, expect:
 }
 ```
 
-- [ ] **Step 3: Implement `section-evidence` command**
+- [x] **Step 3: Implement `section-evidence` command**
 
 Expose:
 
@@ -358,7 +358,7 @@ Scoring should be simple and transparent:
 - section title phrase match,
 - no LLM dependency.
 
-- [ ] **Step 4: Add snapshot summary fields**
+- [x] **Step 4: Add snapshot summary fields**
 
 Add:
 
@@ -379,7 +379,7 @@ Only when section evidence file is provided.
 - Test: `scripts/test_skillopt.py`
 - Modify: `references/optimization-playbook.md`
 
-- [ ] **Step 1: Write failing tests for repeated command normalization**
+- [x] **Step 1: Write failing tests for repeated command normalization**
 
 Normalize:
 
@@ -394,7 +394,7 @@ into the same pattern:
 gh pr checks <NUM> --json name,state
 ```
 
-- [ ] **Step 2: Write failing tests for repeated sequence candidates**
+- [x] **Step 2: Write failing tests for repeated sequence candidates**
 
 Given commands:
 
@@ -406,7 +406,7 @@ gh api graphql ...
 
 appearing across 3 sessions, expect one script candidate with frequency 3.
 
-- [ ] **Step 3: Implement `script-candidates` command**
+- [x] **Step 3: Implement `script-candidates` command**
 
 Expose:
 
@@ -430,7 +430,7 @@ Output:
 }
 ```
 
-- [ ] **Step 4: Update report guidance**
+- [x] **Step 4: Update report guidance**
 
 Require recommendations to reference script candidates when present.
 
@@ -443,7 +443,7 @@ Require recommendations to reference script candidates when present.
 - Test: `scripts/test_skillopt.py`
 - Modify: `SKILL.md`
 
-- [ ] **Step 1: Write failing integration-style test for `analyze`**
+- [x] **Step 1: Write failing integration-style test for `analyze`**
 
 Using temp skill/log fixtures, run:
 
@@ -468,11 +468,11 @@ snapshot.json
 metrics.jsonl
 ```
 
-- [ ] **Step 2: Implement command orchestration**
+- [x] **Step 2: Implement command orchestration**
 
 Call internal functions directly, not subprocesses.
 
-- [ ] **Step 3: Ensure idempotency**
+- [x] **Step 3: Ensure idempotency**
 
 If run twice, overwrite deterministic JSON outputs but append `metrics.jsonl` only when `--append-metrics` is explicitly passed.
 
@@ -484,7 +484,7 @@ If run twice, overwrite deterministic JSON outputs but append `metrics.jsonl` on
 - Modify: `SKILL.md`
 - Modify: `references/optimization-playbook.md`
 
-- [ ] **Step 1: Update main workflow**
+- [x] **Step 1: Update main workflow**
 
 Document preferred command:
 
@@ -494,7 +494,7 @@ python3 scripts/skillopt.py analyze --agent claude ...
 
 Keep lower-level commands as debugging tools.
 
-- [ ] **Step 2: Add adapter confidence rules**
+- [x] **Step 2: Add adapter confidence rules**
 
 Document:
 
@@ -503,7 +503,7 @@ Document:
 - transcript-only evidence is partial.
 - Codex skill loads may be heuristic.
 
-- [ ] **Step 3: Add rollback/adoption flow**
+- [x] **Step 3: Add rollback/adoption flow**
 
 Document:
 
@@ -521,7 +521,7 @@ Document:
 **Files:**
 - All modified files
 
-- [ ] **Step 1: Run unit tests**
+- [x] **Step 1: Run unit tests**
 
 ```bash
 cd ./skill-optimizer/scripts
@@ -530,7 +530,7 @@ python3 -m unittest test_skillopt.py
 
 Expected: OK.
 
-- [ ] **Step 2: Validate Skill**
+- [x] **Step 2: Validate Skill**
 
 ```bash
 python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py ./skill-optimizer
@@ -538,7 +538,7 @@ python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py ./skill-
 
 Expected: `Skill is valid!`
 
-- [ ] **Step 3: Run real sample analysis**
+- [x] **Step 3: Run real sample analysis**
 
 ```bash
 python3 ./skill-optimizer/scripts/skillopt.py analyze \
@@ -554,7 +554,7 @@ python3 ./skill-optimizer/scripts/skillopt.py analyze \
 
 Expected: JSON artifacts generated and metrics snapshot usable.
 
-- [ ] **Step 4: Clean generated caches**
+- [x] **Step 4: Clean generated caches**
 
 Remove `scripts/__pycache__` if created.
 
